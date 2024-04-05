@@ -573,10 +573,6 @@ video {
   display: flex;
 }
 
-.grid {
-  display: grid;
-}
-
 .h-4 {
   height: 1rem;
 }
