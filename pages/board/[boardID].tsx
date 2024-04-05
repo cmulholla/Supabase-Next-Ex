@@ -144,7 +144,7 @@ export default function BoardPage() {
             </ul>
           </Grid>
         </Grid>
-        <Grid container direction="row" spacing={1} alignItems="stretch" style={{ height: '100vh', padding: '10px'}}>
+        <Grid container direction="row" spacing={"1.5%"} alignItems="stretch" style={{ height: '100vh', padding: '1.5%'}}>
           <Grid item xs={3}>
             <Paper sx={{ p: 2, bgcolor: 'rgba(0, 0, 0, 0.1)', border: '1px solid rgba(0, 0, 0, 0.2)', height: '100%' }}>
               <Column boardId={parseInt(boardId as string)} columnName={'To Do'} session={session} supabase={supabase} board_members={board_users} />
