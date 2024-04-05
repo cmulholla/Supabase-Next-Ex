@@ -2,8 +2,44 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { useEffect, useState } from 'react'
+import { Database } from '@/lib/schema'
+import Avatar from '@mui/material/Avatar';
+import Stack from '@mui/material/Stack';
 
-function Header({ session, supabase }: { session: any, supabase: any }) {
+const stringToColor = (str: string) => {
+  let hash = 0;
+  str.split('').forEach(char => {
+    hash = char.charCodeAt(0) + ((hash << 5) - hash)
+  })
+  let colour = '#'
+  for (let i = 0; i < 3; i++) {
+    const value = (hash >> (i * 8)) & 0xff
+    colour += value.toString(16).padStart(2, '0')
+  }
+  return colour
+}
+
+function stringAvatar(name: string | null) {
+  if (!name) name = " ";
+  else if (name.length === 0) name = " ";
+
+  // print the color to the console
+  console.log(stringToColor(name));
+
+  const color = stringToColor(name);
+
+  return {
+    sx: {
+      bgcolor: color,
+      width: 27,
+      height: 27,
+    },
+    children: `${name[0].toUpperCase()}`,
+    title: name,
+  };
+}
+
+function Header({ session, supabase, boardName = "", board_members = [] }: { session: any, supabase: any, boardName?: string, board_members?: Database['public']['Tables']['UserData']['Row'][]}) {
 
   const [username, setUsername] = useState('')
 
@@ -33,25 +69,30 @@ function Header({ session, supabase }: { session: any, supabase: any }) {
 
   return (
     <Navbar bg="primary" variant="dark">
-      <Container className="d-flex justify-content-between">
-        <div style={{ width: '33%' }}></div>
-        <Navbar.Brand href="/" style={{ width: '33%', textAlign: 'center' }}>Scrum AI</Navbar.Brand>
-        <Nav className="d-flex align-items-end" style={{ width: '33%', justifyContent: 'flex-end' }}>
-          {session ? (
-            <>
-              <Nav.Link eventKey="disabled" disabled>
-                {username}
-              </Nav.Link>
-              <Nav.Link href="" onClick={handleLogout}>Logout</Nav.Link>
-            </>
-          ) : (
-            <>
-              <Nav.Link href="/login">Log in</Nav.Link>
-              <Nav.Link href="/signup">Sign up for free!</Nav.Link>
-            </>
-          )}
-        </Nav>
-      </Container>
+      <Navbar.Brand className="d-flex align-items-start" style={{ width: '33vw', justifyContent: 'flex-start', paddingLeft: '1.5%' }}>
+        <Stack direction="row" spacing={1}>
+          <p>{boardName}</p>
+          {board_members.map((user) => (
+            <Avatar {...stringAvatar(user.username)} />
+          ))}
+        </Stack>
+      </Navbar.Brand>
+      <Navbar.Brand href="/" style={{ width: '33vw', textAlign: 'center' }}><b>Scrum AI</b></Navbar.Brand>
+      <Nav className="d-flex align-items-end" style={{ width: '33vw', justifyContent: 'flex-end', paddingRight: '1.5%' }}>
+        {session ? (
+          <>
+            <Nav.Link eventKey="disabled" disabled>
+              {username}
+            </Nav.Link>
+            <Nav.Link href="" onClick={handleLogout}>Logout</Nav.Link>
+          </>
+        ) : (
+          <>
+            <Nav.Link href="/login">Log in</Nav.Link>
+            <Nav.Link href="/signup">Sign up for free!</Nav.Link>
+          </>
+        )}
+      </Nav>
     </Navbar>
   );
 }

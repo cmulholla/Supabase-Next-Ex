@@ -121,29 +121,13 @@ export default function BoardPage() {
   return (
     <>
       <div style={{ display: 'flex', flexDirection: 'column', height: '100vh'}}>
-        <Header session={session} supabase={supabase}/>
+        <Header session={session} supabase={supabase} boardName={board.name} board_members={board_users}/>
         <Head>
-          <title>
-            {board.name}
-          </title>
           
-          <meta name="description" content="Board" />
+          <meta name="description" content={board.name} />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <Grid container direction="row" spacing={2} alignItems="stretch" style={{ height: 'auto' }}>
-          <Grid item xs={6} style={{height: '20%'}}>
-            <h3 style={{ paddingLeft: '10%'}}>{board.name}</h3>
-          </Grid>
-          <Grid item xs={6} style={{ textAlign: 'right', paddingRight: '10%', height: '20%'}}>
-            <h3>Board Members</h3>
-            <ul>
-              {board_users.map((user) => (
-                <li>{user.username}</li>
-              ))}
-            </ul>
-          </Grid>
-        </Grid>
         <Grid container direction="row" spacing={"1.5%"} alignItems="stretch" style={{ height: '100vh', padding: '1.5%'}}>
           <Grid item xs={3}>
             <Paper sx={{ p: 2, bgcolor: 'rgba(0, 0, 0, 0.1)', border: '1px solid rgba(0, 0, 0, 0.2)', height: '100%' }}>
