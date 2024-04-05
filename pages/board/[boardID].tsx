@@ -126,16 +126,17 @@ export default function BoardPage() {
           <title>
             {board.name}
           </title>
+          
           <meta name="description" content="Board" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Grid container direction="row" spacing={2} alignItems="stretch" style={{ height: 'auto' }}>
           <Grid item xs={6} style={{height: '20%'}}>
-            <h1 style={{ paddingLeft: '10%'}}>{board.name}</h1>
+            <h3 style={{ paddingLeft: '10%'}}>{board.name}</h3>
           </Grid>
           <Grid item xs={6} style={{ textAlign: 'right', paddingRight: '10%', height: '20%'}}>
-            <h2>Board Members</h2>
+            <h3>Board Members</h3>
             <ul>
               {board_users.map((user) => (
                 <li>{user.username}</li>

@@ -55,7 +55,7 @@ export default function Column({ boardId, columnName, session, supabase, board_m
   
   return (
     <div>
-      <h2>{columnName}</h2>
+      <h3>{columnName}</h3>
       <Stack spacing={2}>
         <Box sx={{ flexGrow: 1 }}>
           <Paper>
