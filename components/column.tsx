@@ -55,7 +55,8 @@ export default function Column({ boardId, columnName, session, supabase, board_m
   
   return (
     <div>
-      <h3>{columnName}</h3>
+      <h3 style={{ textAlign: 'center' }}>{columnName}</h3>
+      <hr />
       <Stack spacing={2}>
         <Box sx={{ flexGrow: 1 }}>
           <Paper>
