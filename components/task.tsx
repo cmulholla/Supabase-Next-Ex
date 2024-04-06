@@ -22,6 +22,11 @@ type TaskProps = {
   board_members: Database['public']['Tables']['UserData']['Row'][];
 };
 
+// function to find a user by user_id
+function findUserById(user_id: string, board_members: Database['public']['Tables']['UserData']['Row'][]): string {
+  return board_members.find((user) => user.user_id === user_id)?.username || 'Unassigned';
+}
+
 export default function Task({ task, session, supabase, board_members }: TaskProps) {
   const router = useRouter();
   const user = session?.user
@@ -36,10 +41,12 @@ export default function Task({ task, session, supabase, board_members }: TaskPro
     }
   }
 
+  
+
   return (
     <div style={{ border: '1px solid black', padding: '10px', margin: '10px', cursor: 'pointer' }}>
       <h3>{task.title}</h3>
-      <p>{task.assignee_id}</p>
+      <p>{findUserById(task.assignee_id, board_members)}</p>
       {session ? (
         <button onClick={handleDelete}>Delete</button>
       ) : (

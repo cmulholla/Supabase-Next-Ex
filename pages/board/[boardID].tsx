@@ -46,10 +46,6 @@ export default function BoardPage() {
   // Wait until router is ready to access query params
 
   useEffect(() => {
-    if (router.isReady) {
-      setBoardId(router.query.boardID);
-      console.log('Board ID: ', router.query.boardID)
-    }
 
     const fetchBoard = async () => {
       const { data: board, error } = await supabase
@@ -59,6 +55,9 @@ export default function BoardPage() {
         .order('id', { ascending: true })
       
       if (error) console.log('error', error)
+      else if (board == null) {
+        console.log('board is null')
+      }
       else setBoard(board[0])
     }
 
@@ -72,8 +71,8 @@ export default function BoardPage() {
       const { data: board_members, error } = await supabase
         .from('board_members')
         .select('*')
-        .eq('user_id', user.id)
-        .order('board_id', { ascending: true })
+        .eq('board_id', boardId)
+        .order('user_id', { ascending: true })
       
       if (board_members == null) {
         console.log('board members is null')
@@ -111,17 +110,35 @@ export default function BoardPage() {
         }
       })
     }
-  
+
+    
+    if (router.isReady) {
+      setBoardId(router.query.boardID);
+      console.log('Board ID: ', router.query.boardID)
+    }
+    
     fetchBoard()
     fetchBoardMembers()
     fetchUserData()
     setupUsers()
+
   }, [supabase, session, user, router, boardId]);
+
+  if (board == null) {
+    return (
+      <>
+        <Header session={session} supabase={supabase} />
+        <div>
+          <h1>Your account has been flagged. Please return to the dashboard.</h1>
+        </div>
+      </>
+    )
+  }
 
   return (
     <>
       <div style={{ display: 'flex', flexDirection: 'column', height: '100vh'}}>
-        <Header session={session} supabase={supabase} boardName={board.name} board_members={board_users}/>
+        <Header session={session} supabase={supabase} boardName={board.name} board_id={parseInt(boardId as string)} board_members={board_users}/>
         <Head>
           
           <meta name="description" content={board.name} />

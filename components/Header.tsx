@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { Database } from '@/lib/schema'
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
+import { useRouter } from 'next/router';
 
 const stringToColor = (str: string) => {
   let hash = 0;
@@ -23,9 +24,6 @@ function stringAvatar(name: string | null) {
   if (!name) name = " ";
   else if (name.length === 0) name = " ";
 
-  // print the color to the console
-  console.log(stringToColor(name));
-
   const color = stringToColor(name);
 
   return {
@@ -39,9 +37,12 @@ function stringAvatar(name: string | null) {
   };
 }
 
-function Header({ session, supabase, boardName = "", board_members = [] }: { session: any, supabase: any, boardName?: string, board_members?: Database['public']['Tables']['UserData']['Row'][]}) {
-
+function Header({ session, supabase, boardName = "", board_id = 0, board_members = [] }: { session: any, supabase: any, boardName?: string, board_id?: number, board_members?: Database['public']['Tables']['UserData']['Row'][]}) {
+  const router = useRouter();
   const [username, setUsername] = useState('')
+
+  // print board members if they exist
+  console.log("board members:", board_members);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -71,7 +72,7 @@ function Header({ session, supabase, boardName = "", board_members = [] }: { ses
     <Navbar bg="primary" variant="dark">
       <Navbar.Brand className="d-flex align-items-start" style={{ width: '33vw', justifyContent: 'flex-start', paddingLeft: '1.5%' }}>
         <Stack direction="row" spacing={1}>
-          <p>{boardName}</p>
+          <a href={`/board/${board_id}`} style={{textDecoration: 'none', color: 'white'}}>{boardName}</a>
           {board_members.map((user) => (
             <Avatar {...stringAvatar(user.username)} />
           ))}

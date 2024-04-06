@@ -97,7 +97,6 @@ export interface Database {
         }
         Insert: {
           board_id: number
-          ticket_id: number
           title: string
           description: string
           assignee_id: string
