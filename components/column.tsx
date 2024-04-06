@@ -10,6 +10,7 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
 
 // This file will be used in the board page to display the columns
 // This column component will include:
@@ -55,7 +56,20 @@ export default function Column({ boardId, columnName, session, supabase, board_m
   
   return (
     <div>
-      <h3 style={{ textAlign: 'center' }}>{columnName}</h3>
+      <Stack direction="row" spacing={1} justifyContent="space-between">
+        <h6>{columnName + " "}</h6>
+        {columnName === 'To Do' ? (
+          <Button variant="outlined" color="primary" size="small" style={{position: 'relative', top: '-5px', visibility: user ? 'visible' : 'hidden'}}
+                  onClick={() => router.push(`/board/${boardId}/add-task`)}>
+            Add Task
+          </Button>
+        ) : (
+          <Button variant="outlined" color="primary" size="small" style={{position: 'relative', top: '-5px', visibility: 'hidden'}}
+                  onClick={() => router.push(`/board/${boardId}/add-task`)}>
+            Add Task
+          </Button>
+        )}
+      </Stack>
       <hr />
       <Stack spacing={2}>
         <Box sx={{ flexGrow: 1 }}>
