@@ -42,7 +42,9 @@ function Header({ session, supabase, boardName = "", board_id = 0, board_members
   const [username, setUsername] = useState('')
 
   // print board members if they exist
-  console.log("board members:", board_members);
+  if (board_members.length > 0) {
+    console.log("board members2:", board_members);
+  }
 
   const handleLogout = async () => {
     await supabase.auth.signOut();

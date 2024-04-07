@@ -32,7 +32,7 @@ export default function Signup() {
       console.log('User has some data, updating...')
       const { data: any, error } = await supabase
         .from('UserData')
-        .update({ username: data.Username, skills: data['Skills (list)'], talents: data['Other talents']})
+        .update({ username: data.Username, skills: data['Skills (list)'], talents: data['Other talents'], user_id: session?.user.id})
         .eq('email', session?.user.email)
         .single()
 
@@ -49,7 +49,7 @@ export default function Signup() {
       console.log('User has no data, creating...')
       const { data: any, error } = await supabase
         .from('UserData')
-        .insert({ email: session?.user.email, username: data.Username, skills: data['Skills (list)'], talents: data['Other talents']})
+        .insert({ email: session?.user.email, username: data.Username, skills: data['Skills (list)'], talents: data['Other talents'], user_id: session?.user.id})
         .select()
         .single()
 

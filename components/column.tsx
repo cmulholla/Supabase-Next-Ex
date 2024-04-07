@@ -43,7 +43,7 @@ export default function Column({ boardId, columnName, session, supabase, board_m
                 .from('board_ticket_data')
                 .select('*')
                 .eq('board_id', boardId)
-                .eq('column_name', columnName)
+                .eq('status_column', columnName)
                 .order('ticket_id', { ascending: true })
             
             if (error) console.log('error', error)
