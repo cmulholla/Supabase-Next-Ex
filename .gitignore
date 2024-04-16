@@ -25,8 +25,8 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# local env files - commenting for private use
-##.env*.local
+# local env files
+.env*.local
 /supabase/config.toml
 package.json
 
