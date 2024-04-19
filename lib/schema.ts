@@ -94,6 +94,7 @@ export interface Database {
           description: string
           assignee_id: string
           status_column: string
+          to_generate: boolean
         }
         Insert: {
           board_id: number
@@ -101,6 +102,7 @@ export interface Database {
           description: string
           assignee_id: string
           status_column: string
+          to_generate: boolean
         }
         Update: {
           board_id?: number
@@ -109,6 +111,7 @@ export interface Database {
           description?: string
           assignee_id?: string
           status_column?: string
+          to_generate: boolean
         }
       }
     }

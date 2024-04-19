@@ -31,24 +31,28 @@ export default function Task({ task, session, supabase, board_members }: TaskPro
   const router = useRouter();
   const user = session?.user
 
-  const handleDelete = async () => {
+  const handleDelete = async (event: React.MouseEvent) => {
+    event.stopPropagation();
     const { data, error } = await supabase
-      .from('tasks')
+      .from('board_ticket_data')
       .delete()
-      .eq('id', task.ticket_id)
+      .eq('ticket_id', task.ticket_id)
+      .eq('board_id', task.board_id)
     if (error) {
       console.log('error', error)
     }
   }
 
-  
+  const handleDivClick = () => {
+    router.push(`/board/${task.board_id}/${task.ticket_id}`);
+  }
 
   return (
-    <div style={{ border: '1px solid black', padding: '10px', margin: '10px', cursor: 'pointer' }}>
+    <div onClick={handleDivClick} style={{ border: '1px solid black', padding: '10px', margin: '10px', cursor: 'pointer' }}>
       <h3>{task.title}</h3>
       <p>{findUserById(task.assignee_id, board_members)}</p>
       {session ? (
-        <button onClick={handleDelete}>Delete</button>
+        <button onClick={handleDelete} className="p-2 bg-red-500 text-white rounded-lg">Delete</button>
       ) : (
         <></>
       )}
