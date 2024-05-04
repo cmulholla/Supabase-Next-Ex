@@ -1,0 +1,15 @@
+# Fdb version 3
+["pdflatex"] 1713527958 "/home/connor_unix/bun/nextJSListSupaBaseExample/LatexPaper/ScrumAI.tex" "ScrumAI.pdf" "ScrumAI" 1713527958
+  "/etc/texmf/web2c/texmf.cnf" 1712962062 475 c0e671620eb5563b2130f56340a5fde8 ""
+  "/home/connor_unix/bun/nextJSListSupaBaseExample/LatexPaper/ScrumAI.tex" 1713527874 27304 527354a94c3ea1b3580034af4b8da0b7 ""
+  "/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ptm.fd" 1137110629 961 15056f4a61917ceed3a44e4ac11fcc52 ""
+  "/usr/share/texlive/texmf-dist/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
+  "/usr/share/texmf/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
+  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1712962069 1405649 d2507f9e52dc790bfd4d72463c9d3ee8 ""
+  "IEEEtran.cls" 1713522117 281957 5b2e4fa15b0f7eabb840ebf67df4c0f7 ""
+  "ScrumAI.aux" 1713527958 32 3985256e7290058c681f74d7a3565a19 ""
+  "ScrumAI.tex" 1713527874 27304 527354a94c3ea1b3580034af4b8da0b7 ""
+  "cite.sty" 0 -1 0 ""
+  (generated)
+  "ScrumAI.log"
+  "ScrumAI.pdf"

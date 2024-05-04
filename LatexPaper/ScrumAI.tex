@@ -1,0 +1,286 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{comment}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{ScrumAI: A Scrum Board empowered by AI}
+
+
+\author{\IEEEauthorblockN{Connor Mulholland}
+\IEEEauthorblockA{\textit{Department of Mathematics and Computer Science} \\
+\textit{Lawrence Technological University}\\
+Southfield, Michigan, USA \\
+cmulholla@ltu.edu}
+}
+
+\begin{comment}
+
+Abstract: 100 to 150 words
+ - Have you ever been on a team and needed to delegate tasks?
+ - Instead of spending an hour getting to know who’s good at what and spending another hour creating and delegating tasks, just get an AI to do it!
+ - ScrumAI is a Scrum board which automatically creates tasks and assigns them to team members based on their strengths
+ - ScrumAI is a web application that uses a NodeJS backend and a React frontend
+
+Introduction:
+    - Scrum is a project management framework that is used to manage software development
+    - Scrum is based on the idea of breaking down a project into smaller tasks and assigning them to team members
+    - Scrum is used by many companies, including Google, Apple, and Microsoft
+    - ScrumAI is a Scrum board that uses AI to automatically create tasks and assign them to team members based on their strengths
+
+Related Work:
+ - JIRA, Trello, and Asana are popular project management tools that are used by many companies
+ - Taskade and trevorAI are two examples of AI-powered project management tools, but they are locked behind a paywall to use
+
+Methods/Design: State the opportunity or problem you addressed. This is where you specify the approach to your project. Specify the technical approach here as well (languages, tools, API's, etc). This is a good place to have it broken down by sub-sections that tell the story of the design of your project.  Please cite accordingly.  Ensure that you have a subsection for Ethical considerations.
+ - ScrumAI is a web application that uses a NodeJS backend and a React frontend
+ - ScrumAI uses sentence similarity to match team members to tasks by using the setence-transformers/all-MiniLM-L6-v2 model
+ - ScrumAI uses Supabase as a database to store user information and tasks
+    - Supabase's real-time capabilities allow for tasks to be updated in real-time due to being able to subscribe to changes in the database
+ - ScrumAI uses GPT-3.5 to generate tickets/tasks based on user input
+    - GPT-3.5 is used both to generate tasks, and to generate a description of each user based off of their strengths and username to make matching easier
+ - ScrumAI uses AWS to host the web application
+ - ScrumAI uses git for version control and to deploy the application to AWS
+
+Future Work(Optional): this is a good place to place ideas for next steps
+ - the website does not yet have the ability to match and assign team members to tasks based on their strengths
+ - there are many flaws in the security of the website that need to be addressed
+ - this website is merely a prototype and would need to be further developed to be used in a real-world setting
+
+Conclusion: summarize the key aspects of your paper
+Bibliography: your references to support your paper/project (10 minimum) 
+
+
+
+\end{comment}
+
+\maketitle
+
+%%%%%%%%%%%%% Abstract
+\begin{abstract}
+    In today's fast-paced software development landscape, efficient task assignment and management are paramount for project success. ScrumAI revolutionizes the traditional Scrum framework by introducing automated task creation and assignment powered by artificial intelligence (AI). No longer do teams need to spend valuable time manually assigning tasks; with ScrumAI, an AI algorithm analyzes team members' strengths and automatically allocates tasks, optimizing productivity and collaboration.
+
+    ScrumAI is a sophisticated web application that leverages cutting-edge technologies for both the backend and frontend. Built on Next.js, a versatile React framework, ScrumAI ensures seamless server-side rendering and client-side interactivity, offering users a responsive and intuitive experience. Furthermore, Bun, a minimalist web framework for Next.js, enhances backend functionality with streamlined routing and middleware integration.
+    
+    Beyond task assignment, ScrumAI offers real-time collaboration features, user authentication, and intelligent insights to empower teams and project managers. By automating tedious administrative tasks and providing actionable data-driven insights, ScrumAI enables teams to focus on innovation and delivery.
+    
+    In this paper, we delve into the design, implementation, and implications of ScrumAI, showcasing its potential to redefine agile project management practices and drive digital transformation in software development teams.
+    
+\end{abstract}
+
+\begin{IEEEkeywords}
+Scrum, AI, Kanban, project management
+\end{IEEEkeywords}
+
+%%%%%%%%%%%%% Introduction
+\section{Introduction}
+
+In today's fast-paced software development environment, efficient project management is crucial for delivering high-quality products on time and within budget. Scrum, a widely adopted agile framework, offers a structured approach to managing complex software projects by breaking them down into manageable tasks and iterations. However, traditional manual methods of task assignment and tracking can be time-consuming and prone to human error.
+
+Recognizing the need for automation and optimization in project management, ScrumAI emerges as a groundbreaking solution. By harnessing the power of artificial intelligence, ScrumAI revolutionizes the way teams collaborate and organize tasks within the Scrum framework. Gone are the days of laborious task creation and assignment processes; with ScrumAI, teams can leverage AI algorithms to automatically generate tasks and assign them to team members based on their strengths and capabilities.
+
+Moreover, ScrumAI extends beyond basic task management functionalities, offering real-time collaboration features and intelligent insights to enhance team productivity and decision-making. With its intuitive user interface and seamless integration with popular development tools, ScrumAI empowers teams to focus on what they do best – building innovative software solutions – while leaving the tedious administrative tasks to the AI.
+
+As companies across industries embrace agile methodologies like Scrum for their software development projects, the demand for intelligent project management solutions like ScrumAI continues to grow. By streamlining workflows, optimizing resource allocation, and facilitating collaboration, ScrumAI sets a new standard for agile project management in the digital age.
+
+In this paper, we delve into the design, implementation, and implications of ScrumAI, exploring its technical architecture, AI integration, and potential impact on project management practices. Through a detailed analysis of its features and functionalities, we aim to showcase the transformative potential of AI in revolutionizing traditional project management paradigms. Join us on this journey as we explore the future of agile project management with ScrumAI.
+
+
+%%%%%%%%%%%%% Related Work
+\section{Related Work}
+As project management becomes increasingly essential in today's dynamic business environment, numerous tools and platforms have emerged to facilitate efficient task management and collaboration. In this section, we explore several prominent project management tools and platforms, ranging from traditional solutions like JIRA and Trello to innovative AI-powered tools like Taskade and trevorAI. Each tool offers unique features and capabilities, catering to diverse project management needs and preferences. By examining these tools, we gain insights into the evolving landscape of project management and identify potential opportunities for enhancing task assignment processes through automation and artificial intelligence.
+
+\subsection{JIRA}
+JIRA is a comprehensive project management tool developed by Atlassian. It offers a wide range of features, including issue tracking, agile project management, and customizable workflows. JIRA is highly customizable and scalable, making it suitable for teams of all sizes. However, its complexity and learning curve may be daunting for some users.
+
+\subsection{Trello}
+Trello is a popular Kanban-style project management tool known for its simplicity and ease of use. It uses boards, lists, and cards to organize tasks visually, making it ideal for individuals and small teams. While Trello lacks advanced features compared to JIRA, its intuitive interface and flexibility make it a preferred choice for many users.
+
+\subsection{Asana}
+Asana is a versatile project management platform that offers both task and project tracking functionalities. It allows teams to create projects, assign tasks, and set deadlines collaboratively. Asana's user-friendly interface and robust feature set make it a popular choice among teams seeking a balance between simplicity and functionality.
+
+\subsection{Taskade}
+Taskade is an AI-powered project management tool designed to streamline task organization and collaboration. It offers real-time collaboration, task templates, and integrations with popular tools like Slack and Google Drive. Taskade's AI capabilities enhance task management by providing insights and suggestions to improve productivity.
+
+\subsection{trevorAI}
+trevorAI is another AI-powered project management tool focused on automating task management processes. It uses machine learning algorithms to analyze task data and provide intelligent recommendations for task prioritization and assignment. However, trevorAI's premium features are locked behind a paywall, limiting access to its full capabilities.
+
+%%%%%%%%%%%%% Methods and design
+\section{Methods/Design}
+
+\subsection{Overview}
+ScrumAI addresses the challenge of manual task assignment in Scrum by automating the process through artificial intelligence. This section outlines the technical approach and design considerations employed in the development of ScrumAI.
+
+\subsection{Technical Approach}
+
+\subsubsection{Backend and Frontend}
+ScrumAI utilizes Next.js for the backend and frontend, providing a unified framework for server-side rendering and client-side development. Next.js offers several advantages, including built-in routing, server-side rendering capabilities, and optimized performance out of the box.
+
+On the backend, Next.js simplifies the development of API routes and server-side logic, allowing for efficient data retrieval and processing. By leveraging Bun as a minimalist web framework for Next.js, ScrumAI ensures seamless integration of middleware and routing, enabling robust backend functionality.
+
+For the frontend, Next.js enables the creation of dynamic and interactive user interfaces with React components. Its server-side rendering capabilities ensure fast initial page loads and improved SEO performance, enhancing the overall user experience.
+
+Furthermore, ScrumAI leverages state management libraries such as Redux or React Context API to manage application state effectively. This ensures consistency and synchronization of data between different components, enhancing the user experience and scalability of the application.
+
+
+%%%%%%%%%%%%% Sentence Similarity
+\subsubsection{Sentence Similarity}
+ScrumAI incorporates a Sentence Similarity feature aimed at matching tasks with team members based on the similarity between task descriptions and user summaries. This approach offers a data-driven method for task assignment, ensuring that tasks are allocated to individuals with the most relevant skills and expertise.
+
+However, implementing Sentence Similarity posed several technical challenges. One major obstacle was the computational requirements of the Sentence Similarity AI model, which necessitated GPU acceleration for efficient processing. This constraint limited the feasibility of running the AI model directly on the server hosting ScrumAI.
+
+To overcome this challenge, a novel approach was devised, leveraging asynchronous communication between the ScrumAI server and a separate machine equipped with GPU capabilities. A custom script was developed to monitor updates in the ScrumAI database and trigger the Sentence Similarity AI when new tasks were created. This decoupled architecture allowed for efficient utilization of GPU resources while ensuring real-time responsiveness in task assignment.
+
+However, the complexity of this solution introduced additional considerations. One limitation was the requirement for tasks to be created before the Sentence Similarity feature could be utilized, as modifying existing tasks was not supported in the current implementation. This posed usability challenges, as users would need to wait for tasks to be created before assigning them to team members based on similarity scores.
+
+Furthermore, streaming data from the user to the external machine for Sentence Similarity processing introduced potential security and performance implications. Ensuring secure and efficient data transmission while maintaining real-time updates on the ScrumAI website presented a non-trivial engineering task.
+
+Ultimately, after careful consideration, it was determined that the Sentence Similarity feature, while promising, was beyond the scope of the initial prototype phase of ScrumAI. The focus was instead directed towards core functionalities such as task generation and user authentication, with plans to revisit and refine the Sentence Similarity feature in future iterations.
+
+%%%%%%%%%%%%% Supabase
+\subsubsection{Database}
+ScrumAI relies on Supabase as its primary database solution, leveraging its robust features for data storage, real-time updates, and user authentication. Supabase offers a comprehensive suite of tools and services that streamline database management and enhance collaboration among team members.
+
+First and foremost, Supabase serves as the core data storage solution for ScrumAI, storing critical information such as user profiles, task details, and project metadata. Its relational database capabilities ensure data integrity and consistency, enabling seamless retrieval and manipulation of information.
+
+Additionally, Supabase's real-time capabilities play a pivotal role in ScrumAI's collaborative workflow. By leveraging Supabase's real-time subscription feature, ScrumAI enables users to receive instant updates and notifications whenever changes are made to tasks or project statuses. This fosters real-time collaboration and enhances team productivity by keeping all members informed and synchronized.
+
+Furthermore, Supabase serves as the authentication provider for ScrumAI, handling user authentication and authorization seamlessly. By integrating Supabase's authentication service, ScrumAI ensures secure access to its features and protects sensitive user data from unauthorized access.
+
+In summary, Supabase emerges as a versatile and reliable database solution for ScrumAI, providing robust data storage, real-time collaboration, and secure user authentication capabilities. Its integration into ScrumAI's architecture contributes to the platform's efficiency, scalability, and user experience.
+
+%%%%%%%%%%%%% GPT-3.5
+\subsubsection{AI Integration}
+ScrumAI integrates GPT-3.5, a state-of-the-art natural language processing model developed by OpenAI, to automate the generation of tasks and user descriptions. The implementation involves a custom script running locally on the developer's computer, which listens to updates in the Supabase database. Unlike traditional server-side integration, this approach allows for greater flexibility and control over AI interactions.
+
+The script monitors specific tables within the Supabase database, namely the task table and the userdata table, for relevant updates. Upon detecting a suitable update, such as the insertion of a new task or user profile, the script triggers a call to OpenAI's GPT-3.5 API. This asynchronous process ensures timely and efficient task generation without the need for constant server polling.
+
+Once the API call is made, GPT-3.5 generates a JSON-formatted output containing task descriptions or user summaries, depending on the context of the update. The script then parses the JSON response, extracting relevant information such as task titles, descriptions, and user attributes.
+
+The generated task descriptions can be further processed and formatted as needed, allowing for customization and adaptation to specific project requirements. Additionally, the flexibility of the JSON output enables future expansion of AI capabilities within ScrumAI, such as advanced task prioritization or intelligent task assignment based on user preferences and project constraints.
+
+In summary, ScrumAI's AI integration with GPT-3.5 offers a dynamic and scalable solution for automating task generation and user profiling. By leveraging a locally deployed script and asynchronous API calls, ScrumAI ensures efficient and responsive AI interactions, enhancing the overall productivity and user experience of the platform.
+
+\subsubsection{Hosting and Deployment}
+ScrumAI is hosted on AWS (Amazon Web Services), ensuring reliability, scalability, and security. Git is used for version control and deployment, enabling efficient collaboration and continuous integration.
+
+\subsection{Ethical Considerations}
+While developing ScrumAI, several ethical considerations were taken into account to ensure the privacy, security, and integrity of user data. However, it is important to acknowledge certain limitations and areas for improvement in the current implementation:
+
+\subsubsection{Database Security}
+One notable concern is the lack of robust database security measures, particularly the absence of row-level policies in the Supabase database. This limitation could potentially expose user data to unauthorized access, as any user could retrieve other users' tickets and boards. However, it's important to note that ScrumAI is currently in prototype stage with test users, and addressing database security issues may be out of scope for this phase.
+
+\subsubsection{Website Security}
+ScrumAI's website was hosted over HTTP instead of HTTPS, which could pose security risks such as data interception and manipulation. Additionally, hosting the website through a simple IP address rather than a proper domain name may impact usability and credibility.
+
+While these issues are recognized, it's essential to prioritize them appropriately based on the project's current stage and resources. As a prototype project with limited scope and test users, addressing these security concerns may be deferred to future iterations or production deployment.
+
+In summary, while ethical considerations are paramount in software development, the focus of ScrumAI's prototype phase is on functionality and usability testing. Future iterations of the project will prioritize addressing these ethical concerns to ensure a secure and trustworthy platform for all users.
+
+%%%%%%%%%%%%% React
+\subsection{React Technologies}
+
+\subsubsection{React Hooks}
+React Hooks are utilized in ScrumAI to manage stateful logic and side effects within functional components. They enable cleaner and more modular code compared to class components.
+
+\subsubsection{React Router}
+React Router is employed for client-side routing in ScrumAI, enabling navigation between different views or pages within the application without the need for full page reloads.
+
+%%%%%%%%%%%%% CSS
+\subsubsection{Material-UI}
+Material-UI is used to implement a consistent and aesthetically pleasing user interface in ScrumAI. It provides pre-designed React components and themes that adhere to Google's Material Design guidelines.
+
+\subsubsection{Mui}
+Mui is a CSS-in-JS library that allows for the creation of custom styles and themes in ScrumAI. It provides a flexible and efficient way to style React components using JavaScript.
+
+%%%%%%%%%%%%% Ethical Considerations
+\subsection{Ethical Considerations}
+ScrumAI is a web application that uses AI to automatically create tasks and assign them to team members based on their strengths. ScrumAI is designed to help teams manage their projects more efficiently by automating the task creation and assignment process. However, there are ethical considerations that need to be taken into account when using AI in project management.
+
+One ethical consideration is the potential for bias in the AI algorithms used by ScrumAI. AI algorithms are trained on data that may contain biases, which can lead to unfair or discriminatory outcomes. It is important to ensure that the AI algorithms used by ScrumAI are fair and unbiased to avoid negative consequences for team members.
+
+Another ethical consideration is the impact of AI on job security. AI has the potential to automate many tasks that are currently performed by humans, which could lead to job loss for some workers. It is important to consider the impact of AI on job security and take steps to mitigate any negative consequences for team members.
+
+Finally, there are privacy concerns associated with using AI in project management. ScrumAI collects and stores data about team members and their tasks, which raises privacy concerns. It is important to ensure that team members' data is protected and that their privacy is respected when using AI in project management.
+
+
+%%%%%%%%%%%%% Future Work
+\section{Future Work}
+As ScrumAI continues to evolve, several areas of improvement and expansion present themselves as opportunities for future development:
+
+\subsection{Enhanced Task Assignment Algorithm}
+One key area for future work is the development of an advanced task assignment algorithm that leverages team members' strengths and expertise to optimize task allocation. By incorporating machine learning techniques and user feedback, ScrumAI can intelligently match tasks with the most suitable team members, thereby enhancing productivity and collaboration.
+
+\subsection{Security Enhancements}
+Addressing security vulnerabilities is paramount for ensuring the integrity and confidentiality of user data in ScrumAI. Future iterations of the platform should prioritize implementing robust security measures, such as row-level policies in the database and HTTPS encryption for website communication. Additionally, conducting regular security audits and penetration testing can help identify and mitigate potential vulnerabilities proactively.
+
+\subsection{Prototype Refinement}
+While ScrumAI serves as a promising prototype, further refinement and development are necessary to transition it into a production-ready solution. This entails optimizing performance, improving user experience, and addressing any usability issues identified through user testing and feedback. Additionally, scalability considerations should be taken into account to support larger teams and more complex project environments.
+
+\subsection{Integration with External Tools}
+Expanding ScrumAI's capabilities through integration with external tools and services can further enhance its utility and versatility. For example, integrating with popular project management platforms like JIRA or Asana can facilitate seamless data exchange and collaboration across different systems. Moreover, incorporating additional AI models or APIs for advanced analytics and decision support can unlock new possibilities for project optimization and automation.
+
+\subsection{User Empowerment Features}
+Empowering users with greater control and customization options can enhance their experience and productivity within ScrumAI. Future enhancements may include personalized dashboards, customizable task templates, and fine-grained access control settings. By tailoring the platform to individual preferences and workflow requirements, ScrumAI can better meet the diverse needs of its users and teams.
+
+
+%%%%%%%%%%%%% Conclusion
+\section{Conclusion}
+In this paper, we have explored the design, implementation, and implications of ScrumAI, a groundbreaking project management solution that leverages artificial intelligence to automate task assignment within the Scrum framework. By streamlining workflows, optimizing resource allocation, and enhancing collaboration, ScrumAI offers a transformative approach to agile project management, paving the way for increased productivity and efficiency in software development teams.
+
+We began by introducing the challenges inherent in traditional project management methods and the rationale behind the development of ScrumAI. As an innovative solution, ScrumAI aims to address these challenges by automating task creation and assignment, facilitating real-time collaboration, and providing intelligent insights to guide decision-making.
+
+Through a detailed examination of its technical architecture and design considerations, we explored the integration of various technologies such as Node.js, React, Supabase, and GPT-3.5, highlighting their roles in enabling the core functionalities of ScrumAI. Additionally, we discussed ethical considerations and future work, acknowledging areas for improvement and potential avenues for future development.
+
+Despite its prototype status, ScrumAI demonstrates significant promise in revolutionizing agile project management practices. By empowering teams with AI-driven automation and intelligent decision support, ScrumAI enables organizations to adapt and thrive in today's dynamic software development landscape.
+
+As we look towards the future, the continued refinement and expansion of ScrumAI hold exciting possibilities for innovation and growth. By addressing security vulnerabilities, enhancing task assignment algorithms, and empowering users with greater customization options, ScrumAI aims to redefine the way teams collaborate and deliver software products.
+
+In conclusion, ScrumAI represents a paradigm shift in agile project management, offering a glimpse into the potential of AI to reshape the way software development teams operate. With its user-centric design, robust technical foundation, and commitment to continuous improvement, ScrumAI stands poised to lead the charge towards a more efficient, collaborative, and successful future in software development.
+
+
+%%%%%%%%%%%%% Bibliography
+\begin{thebibliography}{00}
+\bibitem{trello}
+Trello. \emph{trello.com}.
+
+\bibitem{jira}
+JIRA Software. Atlassian. \emph{www.atlassian.com/software/jira}.
+
+\bibitem{asana}
+Asana. \emph{asana.com}.
+
+\bibitem{taskade}
+Taskade. \emph{taskade.com}.
+
+\bibitem{trevorai}
+TrevorAI. \emph{trevorai.com}.
+
+\bibitem{react}
+React. \emph{react.dev}.
+
+\bibitem{materialui}
+Material-UI. \emph{mui.com}.
+
+\bibitem{aws}
+Amazon Web Services. \emph{aws.amazon.com}.
+
+\bibitem{nextjs}
+Next.js. \emph{nextjs.org}.
+
+\bibitem{sentence-transformers}
+``Sentence-Transformers.'' Hugging Face. \emph{huggingface.co/sentence-transformers/all-MiniLM-L6-v2}.
+    
+\end{thebibliography}
+\vspace{12pt}
+
+\end{document}

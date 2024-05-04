@@ -58,7 +58,7 @@ export default function BoardPage() {
         console.log('boardId is null')
         return;
       }
-
+      
       const { data: board, error } = await supabase
         .from('boards')
         .select('*')
